@@ -77,7 +77,7 @@ _multiplicationTable12To30();
     },
     get_the_square_of_1_50 () {
       let h1 = document.createElement('h1')
-      let str = document.createTextNode('# Squre of 1 to 50');
+      let str = document.createTextNode('# Square of 1 to 50');
       h1.appendChild(str);
       let ul = document.createElement('ul')
       for(let i = 1; i < 51; i++) {
