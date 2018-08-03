@@ -1,60 +1,3 @@
-// function _square50 () {
-//   let digitSquare = [];
-//   for(let i = 1; i < 51; i++) {
-//     digitSquare.push([`${i}^2`, i*i]);
-//   }
-//   console.log(digitSquare)
-// }
-
-function _getPow (number, max) {
-  let n = [];
-  for(let i = 1; i < (max + 1); i++) {
-    let nt = `${number}^${i} -  ${Math.pow(number, i)}`
-    n.push(nt);
-  }
-  console.log(n)
-}
-
-function _getTheSquareRoot () {
-  // √
-  let n = [];
-  for(let i = 2; i < 11; i++) {
-    let nr = `√${i} = ${Math.sqrt(i)}`
-    n.push(nr);
-  }
-  console.log(n)
-}
-
-function _getPowAll() {
-  _getPow(2, 10)
-  _getPow(3, 10)
-  _getPow(4, 4)
-  _getPow(5, 4)
-  _getPow(6, 4)
-  _getPow(7, 4)
-  _getPow(8, 4)
-  _getPow(9, 4)
-  _getPow(10, 4)
-}
-function _multiplicationTable12To30 () {
-  let allTable = [];
-  for(let i = 12; i < 31; i++) {
-    let singleTable = [];
-    for(let j = 1; j < 11; j++) {
-      let st = `${i}X${j} = ${i * j}`
-      singleTable.push(st)
-    }
-    allTable.push(singleTable);
-  }
-  console.log(allTable);
-} 
-
-//output results
-//_square50();
-// _getPowAll()
-// _getTheSquareRoot();
-_multiplicationTable12To30();
-
 (function () {
   App = {
     init: function () {
@@ -63,6 +6,7 @@ _multiplicationTable12To30();
       this.get_the_square_root();
       this.get_pow_all();
       this.all_multiplication_table();
+      this.number_frequency();
     },
     domCached: function () {
       this.math_out = document.querySelector('#math_out')
@@ -149,12 +93,31 @@ _multiplicationTable12To30();
         div.appendChild(this.single_multipliation_table(i))
       }
       this.mountingContent(`# All multiplication table`, div);
-    }
+    },
+    get_frequency: function (string, char) {
+      let re = new RegExp(char, 'gi');
+      let length = string.match(re).length
+      return length;
+    },
+    number_frequency: function () {
+      let string_number = '';
+      for (let i = 0; i < 101; i++) {
+        string_number += `${i}`
+      }
+      let ul = document.createElement('ul')
+      for (let i = 0; i < 10; i++) {
+        let str = `${i} - ${this.get_frequency(string_number, i)}`
+        let li = document.createElement('li')
+        let listr = document.createTextNode(str);
+        li.appendChild(listr);
+        ul.appendChild(li)
+      }
+      this.mountingContent('# Frequncy of number', ul);
+    },
 
   }
   App.init();
 })()
 
 // modular Approach 
-$(function () {})
 
