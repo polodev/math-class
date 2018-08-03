@@ -113,7 +113,7 @@
         li.appendChild(listr);
         ul.appendChild(li)
       }
-      this.mountingContent('# Frequncy of number', ul);
+      this.mountingContent('# Frequency of number till 100', ul);
     },
     is_prime: function (n) {
       if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false; 
@@ -126,16 +126,21 @@
     },
     getting_prime: function () {
       let str = "";
+      let numbers = [];
       for(i = 1; i < 101; i++) {
         if (this.is_prime(i)) {
           str += `${i}, `
+          numbers.push(i)
         }
       }
+
       str = str.trim();
       var trim = str.replace(/(^,)|(,$)/g, "")
       let p = document.createElement('p');
       var pStr = document.createTextNode(trim);
+      var pStr2 = document.createTextNode(`-- Total:  ${numbers.length}`)
       p.appendChild(pStr);
+      p.appendChild(pStr2);
       this.mountingContent('Prime number till 100', p);
     }
 
