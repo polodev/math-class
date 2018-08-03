@@ -7,6 +7,7 @@
       this.get_pow_all();
       this.all_multiplication_table();
       this.number_frequency();
+      this.getting_prime();
     },
     domCached: function () {
       this.math_out = document.querySelector('#math_out')
@@ -114,6 +115,29 @@
       }
       this.mountingContent('# Frequncy of number', ul);
     },
+    is_prime: function (n) {
+      if (isNaN(n) || !isFinite(n) || n%1 || n<2) return false; 
+       if (n%2==0) return (n==2);
+       var m=Math.sqrt(n);
+       for (var i=3;i<=m;i+=2) {
+        if (n%i==0) return false;
+       }
+       return true;
+    },
+    getting_prime: function () {
+      let str = "";
+      for(i = 1; i < 101; i++) {
+        if (this.is_prime(i)) {
+          str += `${i}, `
+        }
+      }
+      str = str.trim();
+      var trim = str.replace(/(^,)|(,$)/g, "")
+      let p = document.createElement('p');
+      var pStr = document.createTextNode(trim);
+      p.appendChild(pStr);
+      this.mountingContent('Prime number till 100', p);
+    }
 
   }
   App.init();
