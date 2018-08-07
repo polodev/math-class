@@ -1,3 +1,84 @@
+// multiplication quiz
+(function () {
+
+  var App = {
+    init: function () {
+      let questions = this.generateAllMultiplicationTable()
+      this.state.questions = questions;
+      let randomNumber = this.getRandomArbitrary(0, questions.length);
+      let currentQuestion = this.state.questions[randomNumber];
+      this.state.currentQuestion = currentQuestion;
+
+      this.domCached();
+      this.bindEvents();
+
+      this.render();
+    },
+    domCached: function () {
+      this.show_button = document.querySelector('#show_button')
+      this.next_button = document.querySelector('#next_button')
+      this.question_block = document.querySelector('#question_block')
+      this.answer_block = document.querySelector('#answer_block')
+    },
+    bindEvents: function () {
+      this.show_button.addEventListener('click', this.show_button_click.bind(this));
+      this.next_button.addEventListener('click', this.next_button_click.bind(this));
+    },
+    show_button_click: function () {
+      this.setState({isResultShowing: !this.state.isResultShowing})
+    },
+    next_button_click: function () {
+      let randomNumber = this.getRandomArbitrary(0, this.state.questions.length);
+      let currentQuestion = this.state.questions[randomNumber];
+      this.setState({currentQuestion, isResultShowing: false})
+    },
+    state: {
+      questions: [],
+      isResultShowing: false,
+      currentQuestion: {},
+    },
+    getRandomArbitrary: function (min, max) {
+      return Math.floor( Math.random() * (max - min) + min);
+    },
+    render: function () {
+      let {currentQuestion, isResultShowing} = this.state;
+      this.question_block.innerHTML = currentQuestion.question
+      if (isResultShowing) {
+        this.answer_block.innerHTML = ` = ${currentQuestion.answer}`
+      } else {
+        this.answer_block.innerHTML = `?`
+      }
+    },
+    setState: function (state) {
+      this.state = {...this.state, ...state}
+      this.render()
+    },
+    generateSingleMultiplicationTable: function (number) {
+      let arr = [];
+      for(let i = 1; i <= 10; i++) {
+        let obj = {
+          question: `${number}X${i}`,
+          answer: number * i
+        }
+        arr.push(obj);
+      }
+      return arr;
+
+    },
+    generateAllMultiplicationTable: function () {
+      let arr = [];
+      for(let i = 11; i <= 30; i++) {
+        newarr = this.generateSingleMultiplicationTable(i);
+        newarr.forEach(obj => arr.push(obj))
+      }
+      return arr;
+    }
+  }
+  App.init();
+
+}());
+
+// for generating class
 (function () {
   App = {
     init: function () {
@@ -146,7 +227,7 @@
 
   }
   App.init();
-})()
+}())
 
 // modular Approach 
 
